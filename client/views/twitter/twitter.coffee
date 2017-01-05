@@ -8,9 +8,10 @@ Template.shareit_twitter.onRendered ->
     #
     # Twitter cards
     #
-    $('<meta>', { property: 'twitter:card', content: 'summary' }).appendTo 'head'
-    # What should go here?
-    #$('<meta>', { property: 'twitter:site', content: '' }).appendTo 'head'
+    $('<meta>', { property: 'twitter:card', content: 'summary_large_image' }).appendTo 'head'
+
+    site = data.twitter?.twitter || data.twitter
+    $('<meta>', { property: 'twitter:site', content: site }).appendTo 'head'
 
     url = data.twitter?.url || data.url
     url = if _.isString(url) and url.length then url else ShareIt.location.origin() + ShareIt.location.pathname()
