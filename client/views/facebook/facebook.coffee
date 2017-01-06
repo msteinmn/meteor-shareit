@@ -14,9 +14,14 @@ Template.shareit_facebook.onRendered ->
     $('<meta>', { property: 'og:type', content: 'article' }).appendTo 'head'
     $('<meta>', { property: 'og:site_name', content: ShareIt.location.hostname() }).appendTo 'head'
 
+    # og:url is a redirect for the Facebook crawler
+    # to go look at the redirect page instead
+    # We don't want that here
     url = data.facebook?.url || data.url
     url = if _.isString(url) and url.length then url else ShareIt.location.href()
-    $('<meta>', { property: 'og:url', content: url }).appendTo 'head'
+    #$('<meta>', { property: 'og:url', content: url }).appendTo 'head'
+    
+    #console.log 'facebook url:', url, data, ShareIt.location.href()
 
     title = data.facebook?.title || data.title
     if _.isString(title) and title.length
@@ -58,8 +63,10 @@ Template.shareit_facebook.onRendered ->
         evt.preventDefault()
         FB.ui {method: 'share', display: 'popup', href: url}, (res) -> res
     else
-      href = "https://www.facebook.com/sharer/sharer.php?s=100&p[url]=#{encodeURIComponent url}&p[title]=#{encodeURIComponent title}&p[summary]=#{encodeURIComponent description}"
-      href += "&p[images][0]=#{encodeURIComponent img}" if img
+# Facebook sharer.php is depracated. We no longer need to URL-encode all the parameters
+#      href = "https://www.facebook.com/sharer/sharer.php?s=100&p[url]=#{encodeURIComponent url}&p[title]=#{encodeURIComponent title}&p[summary]=#{encodeURIComponent description}"
+#      href += "&p[images][0]=#{encodeURIComponent img}" if img
+      href = "https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent url}"
 
       Template.instance().$(".fb-share").attr "href", href
 

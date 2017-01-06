@@ -14,9 +14,9 @@ ShareIt =
     host: Meteor.bindEnvironment () ->
       Meteor.absoluteUrl().replace(/^http:\/\/|^https:\/\//, '').replace(/\/$/, '')
     href: Meteor.bindEnvironment () -> 
-      Meteor.absoluteUrl().replace(/\/$/, '') + location.pathname
+      Meteor.absoluteUrl(null, {secure: true}).replace(/\/$/, '') + location.pathname
     origin: Meteor.bindEnvironment () -> 
-      Meteor.absoluteUrl().replace(/\/$/, '')
+      Meteor.absoluteUrl(null, {secure: true}).replace(/\/$/, '')
     pathname: Meteor.bindEnvironment () -> 
       location.pathname # "/showcontent/awjdaf2384" whatever the server location
     hostname: Meteor.bindEnvironment () -> 
