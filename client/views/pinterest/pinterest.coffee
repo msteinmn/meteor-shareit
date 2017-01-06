@@ -7,7 +7,7 @@ Template.shareit_pinterest.onRendered ->
 
     preferred_url = data.url || ShareIt.location.origin() + ShareIt.location.pathname()
     url = encodeURIComponent preferred_url
-    description = encodeURIComponent data.pinterest?.description || data.description
+    description = encodeURIComponent data.pinterest?.description || data.excerpt || data.description || data.summary
     
     if data.thumbnail?
       img = if _.isFunction data.thumbnail then data.thumbnail() else data.thumbnail

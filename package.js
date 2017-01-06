@@ -22,7 +22,9 @@ Package.onUse(function(api) {
     'client/views/googleplus/googleplus.html',
     'client/views/googleplus/googleplus.coffee',
     'client/views/pinterest/pinterest.html',
-    'client/views/pinterest/pinterest.coffee'
+    'client/views/pinterest/pinterest.coffee',
+    'client/views/linkedin/linkedin.html',
+    'client/views/linkedin/linkedin.coffee'
   ], 'client');
 
   api.export('ShareIt', 'client');

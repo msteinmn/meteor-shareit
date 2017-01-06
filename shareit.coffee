@@ -42,6 +42,9 @@ ShareIt =
       instagram:
         'description': ''
         'buttonText': 'Share on Instagram'
+      linkedin:
+        'description': ''
+        'buttonText': 'Share on LinkedIn'
     siteOrder: []
     classes: 'large btn'
     iconOnly: false
@@ -64,6 +67,7 @@ ShareIt =
       googleplus: ShareIt.settings.sites.googleplus.buttonText
       pinterest: ShareIt.settings.sites.pinterest.buttonText
       instagram: ShareIt.settings.sites.instagram.buttonText
+      linkedin: ShareIt.settings.sites.linkedin.buttonText
 
   init: (params) ->
     @configure params if params?
