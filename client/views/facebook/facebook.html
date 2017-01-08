@@ -1,3 +1,5 @@
 <template name="shareit_facebook">
-  <a href="#" target="_blank" class="{{classes}}{{applyColors 'shareit-facebook-colors'}} fb-share"><i class="fa fa-facebook{{faClass}} {{faSize}}"></i>{{showText buttonText.facebook}}</a>
+  {{#unless noButton}}
+    <a href="#" target="_blank" class="{{classes}}{{applyColors 'shareit-facebook-colors'}} fb-share"><i class="fa fa-facebook{{faClass}} {{faSize}}"></i>{{showText buttonText.facebook}}</a>
+  {{/unless}}
 </template>

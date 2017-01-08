@@ -29,3 +29,7 @@ Template.shareit_pinterest.events
     window.open $(template.find('.pinterest-share')).attr('href'), 'pinterest_window', 'width=750, height=650'
 
 Template.shareit_pinterest.helpers(ShareIt.helpers)
+
+Template.shareit_pinterest.helpers
+  noButton: ->
+        ShareIt.settings.sites.pinterest.noButton

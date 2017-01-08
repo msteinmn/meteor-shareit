@@ -19,15 +19,29 @@ Template.shareit_facebook.onRendered ->
     # We don't want that here
     url = data.facebook?.url || data.url
     url = if _.isString(url) and url.length then url else ShareIt.location.href()
-    #$('<meta>', { property: 'og:url', content: url }).appendTo 'head'
+    url = url + '/'
+    $('<meta>', { property: 'og:url', content: url }).appendTo 'head'
     
-    #console.log 'facebook url:', url, data, ShareIt.location.href()
+    # set the canonical link (same as og:url)
+    $('<link>', { rel: 'canonical', href: url }).appendTo 'head'
+    
+    #console.log '--------------facebook url:', url
+    
+    if ShareIt.settings.sites.facebook.locale?
+      $('<meta>', { property: 'og:locale', content: ShareIt.settings.sites.facebook.locale }).appendTo 'head'
 
     title = data.facebook?.title || data.title
     if _.isString(title) and title.length
       $('<meta>', { property: 'og:title', content: title }).appendTo 'head'
     else
       title = ''
+        
+    updatedAt = JSON.stringify data.facebook?.updatedAt || data.updatedAt
+    updatedAt = updatedAt.replace(/['"]+/g, '')
+    if _.isString(updatedAt) and updatedAt.length
+      $('<meta>', { property: 'og:updated_time', content: updatedAt }).appendTo 'head'
+    else
+      updatedAt = ''
 
     description = data.facebook?.description || data.excerpt || data.description || data.summary
     if _.isString(description) and description.length
@@ -71,3 +85,7 @@ Template.shareit_facebook.onRendered ->
       Template.instance().$(".fb-share").attr "href", href
 
 Template.shareit_facebook.helpers ShareIt.helpers
+
+Template.shareit_facebook.helpers
+  noButton: ->
+        ShareIt.settings.sites.facebook.noButton

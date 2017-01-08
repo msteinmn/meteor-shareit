@@ -36,3 +36,7 @@ Template.shareit_googleplus.onRendered ->
     template.$(".googleplus-share").attr "href", href
 
 Template.shareit_googleplus.helpers(ShareIt.helpers)
+
+Template.shareit_googleplus.helpers
+  noButton: ->
+        ShareIt.settings.sites.googleplus.noButton

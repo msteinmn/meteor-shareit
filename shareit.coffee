@@ -26,23 +26,29 @@ ShareIt =
     buttons: 'responsive'
     sites:
       facebook:
+        'noButton': false
         'appId': null
         'version': 'v2.3'
         'description': ''
         'buttonText': 'Share on Facebook'
       twitter:
+        'noButton': false
         'description': ''
         'buttonText': 'Share on Twitter'
       googleplus:
+        'noButton': false
         'description': ''
         'buttonText': 'Share on Google+'
       pinterest:
+        'noButton': false
         'description': ''
         'buttonText': 'Share on Pinterest'
       instagram:
+        'noButton': false
         'description': ''
         'buttonText': 'Share on Instagram'
       linkedin:
+        'noButton': false
         'description': ''
         'buttonText': 'Share on LinkedIn'
     siteOrder: []

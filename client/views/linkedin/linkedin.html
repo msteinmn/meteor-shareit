@@ -1,6 +1,8 @@
 <template name="shareit_linkedin">
-  <a class="{{classes}}{{applyColors 'shareit-linkedin-colors'}} linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{url}}">
+  {{#unless noButton}}
+    <a class="{{classes}}{{applyColors 'shareit-linkedin-colors'}} linkedin-share" href="https://www.linkedin.com/shareArticle?mini=true&url={{url}}">
     
     <!-- &title={{title}}&description={{description}}"> -->
-      <i class="fa fa-linkedin{{faClass}} {{faSize}}"></i>{{showText buttonText.linkedin}}</a>
+    <i class="fa fa-linkedin{{faClass}} {{faSize}}"></i>{{showText buttonText.linkedin}}</a>
+  {{/unless}}
 </template>

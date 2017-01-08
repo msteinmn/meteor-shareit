@@ -55,3 +55,7 @@ Template.shareit_twitter.onRendered ->
     Template.instance().$(".tw-share").attr "href", href
 
 Template.shareit_twitter.helpers ShareIt.helpers
+
+Template.shareit_twitter.helpers
+  noButton: ->
+        ShareIt.settings.sites.twitter.noButton

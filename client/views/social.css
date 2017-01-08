@@ -1,3 +1,7 @@
+.share-buttons a {
+    margin-bottom: 20px;
+}
+
 .share-buttons a:hover {
   text-decoration: none;
 }
