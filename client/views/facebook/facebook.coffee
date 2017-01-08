@@ -19,10 +19,11 @@ Template.shareit_facebook.onRendered ->
     # We don't want that here
     url = data.facebook?.url || data.url
     url = if _.isString(url) and url.length then url else ShareIt.location.href()
-    url = url + '/'
+    #url = url + '/'
     $('<meta>', { property: 'og:url', content: url }).appendTo 'head'
     
     # set the canonical link (same as og:url)
+    $('link[rel^="canonical"]').remove()
     $('<link>', { rel: 'canonical', href: url }).appendTo 'head'
     
     #console.log '--------------facebook url:', url
@@ -46,6 +47,10 @@ Template.shareit_facebook.onRendered ->
     description = data.facebook?.description || data.excerpt || data.description || data.summary
     if _.isString(description) and description.length
       $('<meta>', { property: 'og:description', content: description }).appendTo 'head'
+      
+      # replace standard description
+      $('meta[name^="description"]').remove()
+      $('<meta>', { name: 'description', content: description }).appendTo 'head'
     else
       description = ''
 
@@ -70,6 +75,7 @@ Template.shareit_facebook.onRendered ->
       else
         img = ''
 
+    $('meta[property^="fb:app_id"]').remove()
     if ShareIt.settings.sites.facebook.appId?
       $('<meta>', { property: 'fb:app_id', content: ShareIt.settings.sites.facebook.appId }).appendTo 'head'
 
