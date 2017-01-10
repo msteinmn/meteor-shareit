@@ -11,15 +11,15 @@ Template.shareit_twitter.onRendered ->
     $('<meta>', { property: 'twitter:card', content: 'summary_large_image' }).appendTo 'head'
 
     site = data.twitter?.twitter || data.twitter
-    $('<meta>', { property: 'twitter:site', content: site }).appendTo 'head'
+    $('<meta>', { property: 'twitter:site', content: '@' + site }).appendTo 'head'
 
     url = data.twitter?.url || data.url
     url = if _.isString(url) and url.length then url else ShareIt.location.origin() + ShareIt.location.pathname()
     $('<meta>', { property: 'twitter:url', content: url }).appendTo 'head'
 
-    author = data.twitter?.author || data.author
+    author = data.twitter?.author || data.twitter
     if _.isString(author) and author.length
-      $('<meta>', { property: 'twitter:creator', content: author }).appendTo 'head'
+      $('<meta>', { property: 'twitter:creator', content: '@' + author }).appendTo 'head'
     else
       author = ''
       
@@ -43,16 +43,34 @@ Template.shareit_twitter.onRendered ->
       else
         img = ''
 
-    #
-    # Twitter share button
-    #
-    href = "https://twitter.com/intent/tweet?url=#{encodeURIComponent url}&text=#{encodeURIComponent title}"
+# We need to call bitly from the onRendered method and not the click event. Cannot open a popup window from a callback as this is blocked by the browser
+# http://stackoverflow.com/questions/18577928/meteor-callback-on-window-openurl-does-not-open-window
+    utm = "utm_campaign=twitter&utm_medium=twitter&utm_source=twitter"
+    
+    longUrl = url + '?' + utm
+    hashtags = data.twitter?.hashtags || data.hashtags || data.tags
+    
+    hashtags = hashtags.toString() if not _.isString(hashtags)
+        
+    hrefParams = "&hashtags=#{encodeURIComponent hashtags}" if _.isString(hashtags) and hashtags.length
+            
+    hrefParams += "&via=#{encodeURIComponent author}" if author
 
-    hashtags = data.twitter?.hashtags || data.hashtags
-    href += "&hashtags=#{encodeURIComponent hashtags}" if _.isString(hashtags) and hashtags.length
-    href += "&via=#{encodeURIComponent author}" if author
-      
-    Template.instance().$(".tw-share").attr "href", href
+
+    Meteor.call 'getBitlyUrl', longUrl, (error, response) =>
+      if error
+        console.log 'bitly error:', error.reason
+        # add link without bitly and no utm
+        href = "https://twitter.com/intent/tweet?url=#{encodeURIComponent url}&text=#{encodeURIComponent title}"
+
+      else
+        #console.log 'Here ya go:', response.data.url
+        href = "https://twitter.com/intent/tweet?url=#{encodeURIComponent response.data.url}&text=#{encodeURIComponent title}"
+        
+      href += hrefParams
+      @templateInstance().$(".tw-share").attr "href", href
+
+    
 
 Template.shareit_twitter.helpers ShareIt.helpers
 
